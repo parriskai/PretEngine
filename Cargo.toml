@@ -1,0 +1,2 @@
+[workspace]
+members = ["lib-pret", "pret-build", "pret-macros","proj"]

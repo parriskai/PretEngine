@@ -1,0 +1,11 @@
+[package]
+name = "proj"
+version = "0.1.0"
+edition = "2024"
+build = "build.rs"
+
+[build-dependencies]
+pret-build = {path = "../pret-build"}
+
+[dependencies]
+lib-pret = {path = "../lib-pret"}

@@ -1,0 +1,14 @@
+include = []
+
+[[worlds]]
+name = "Default"
+include = "optout"
+
+
+[[handles]]
+name = "Frame"
+context = ["glcontxt"]
+
+[[components]]
+name = "MeshRenderer"
+handles = [{every="Frame", callback="render", with = ["glcontext"]}]

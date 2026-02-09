@@ -1,0 +1,7 @@
+include = [
+    "lib-pret"
+]
+
+[[entities]]
+name = "Cube"
+components = ["lib_pret::MeshRenderer"]
