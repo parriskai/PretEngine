@@ -72,13 +72,19 @@ pub struct HandleDef{
     pub name: String,
 
     #[serde(default)]
-    pub context: Vec<String>,
+    pub context: Vec<ContextDef>,
     
     #[serde(default)]
     pub include_in: Vec<String>,
 
     #[serde(default)]
     pub exclude_from: Vec<String>
+}
+
+#[derive(Debug, Deserialize)]
+pub struct ContextDef{
+    pub name: String,
+    pub type: String
 }
 
 #[derive(Debug, Deserialize)]
@@ -132,6 +138,7 @@ pub struct PretSpec{
 
         for x in pf.include{
             if let Some(d) = namespace.get(&x){
+                println!("cargo::warning={:#?}", d.path);
                 if !includes.insert(d.clone()){
                     println!("cargo::warning={x} is included twice");
                 }
@@ -139,6 +146,7 @@ pub struct PretSpec{
                 return Err(Error::DependencyError(format!("Dependency {x} not in the crate namespace")));
             }
         }
+        
         Ok(())
     }
 }

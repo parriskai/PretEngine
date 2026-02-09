@@ -1,7 +1,5 @@
-use pret_build::spec::ECSSpec;
+use pret_build::spec::PretSpec;
 
 fn main(){
-    let pret = ECSSpec::load_pret(include_str!("pret.toml")).unwrap();
-    println!("{:#?}",pret);
-    panic!()
+    let pret = PretSpec::load(std::env::current_dir().unwrap().as_path()).unwrap();
 }

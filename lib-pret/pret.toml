@@ -7,7 +7,7 @@ include = "optout"
 
 [[handles]]
 name = "Frame"
-context = ["glcontxt"]
+context = [{name="glcontxt", type="GLContext"}]
 
 [[components]]
 name = "MeshRenderer"
