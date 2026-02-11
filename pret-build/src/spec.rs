@@ -84,7 +84,8 @@ pub struct HandleDef{
 #[derive(Debug, Deserialize)]
 pub struct ContextDef{
     pub name: String,
-    pub type: String
+    #[serde(alias="type")]
+    pub ty: String
 }
 
 #[derive(Debug, Deserialize)]
@@ -132,13 +133,17 @@ pub struct PretSpec{
             else {Err(Error::ManifestError(cargo_metadata::Error::CargoMetadata { stderr: "No Root package".to_string()}))}
         )?;
 
-        let namespace: HashMap<String, Dependency> = package.dependencies.iter().map(|d| (d.name.clone(), d.clone())).collect();
+        let namespace: HashMap<String, String> = package.dependencies.iter().cloned().map(|d| {
+            (
+                d.rename.unwrap_or(d.name.clone()),
+                d.name
+            )
+        }).collect();
 
-        let mut includes: HashSet<Dependency> = HashSet::with_capacity(pf.include.len());
+        let mut includes: HashSet<String> = HashSet::with_capacity(pf.include.len());
 
         for x in pf.include{
             if let Some(d) = namespace.get(&x){
-                println!("cargo::warning={:#?}", d.path);
                 if !includes.insert(d.clone()){
                     println!("cargo::warning={x} is included twice");
                 }

@@ -9,3 +9,4 @@ pret-build = {path = "../pret-build"}
 
 [dependencies]
 lib-pret = {path = "../lib-pret"}
+anyhow = "*"
